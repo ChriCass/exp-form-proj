@@ -23,6 +23,7 @@ return new class extends Migration
               ->on('areas')
               ->onDelete('restrict') // Opción para manejar la eliminación en 'areas'
               ->onUpdate('cascade'); // Opción para manejar la actualización en 'areas'
+              $table->timestamps();
         });
     }
 

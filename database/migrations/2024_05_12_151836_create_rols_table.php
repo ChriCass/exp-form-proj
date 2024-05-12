@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sexos', function (Blueprint $table) {
-            $table->id('codigo_sex'); // ID autoincremental y primary key
-            $table->string('nombre_sex', 50);
-            $table->string('abreviatura_sex', 3);
-            $table->boolean('estado_sex')->default(true); // bit se convierte en booleano
+        Schema::create('rols', function (Blueprint $table) {
+            $table->id('codigo_rol'); // ID autoincremental y clave primaria
+            $table->string('nombre_rol', 200); // Columna para el nombre del rol
+            $table->boolean('estado_rol')->default(true); // BIT se traduce a booleano en Laravel
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sexos');
+        Schema::dropIfExists('rols');
     }
 };

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('porcentaje_rp', 100); // Columna para almacenar el porcentaje, aunque debería considerarse un tipo numérico
             $table->string('abreviatura_rp', 5);
             $table->boolean('estado_rp')->default(true); // BIT se convierte en booleano
+            $table->timestamps();
         });
     }
 

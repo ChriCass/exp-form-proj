@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tipo_eps', 100); // Columna para indicar si es público o privado
             $table->string('abreviatura_eps', 5); // Corrige el nombre de la columna
             $table->boolean('estado_eps')->default(true); // BIT se convierte en booleano
+            $table->timestamps();
         });
     }
 

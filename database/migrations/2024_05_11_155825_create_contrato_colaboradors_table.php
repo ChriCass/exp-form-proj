@@ -23,6 +23,7 @@ return new class extends Migration
             // Claves foráneas
             $table->foreign('codigo_col')->references('codigo_col')->on('colaboradors')->onDelete('cascade');
             $table->foreign('codigo_hor')->references('codigo_hor')->on('horarios')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

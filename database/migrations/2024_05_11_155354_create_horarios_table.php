@@ -16,6 +16,7 @@ return new class extends Migration
             $table->dateTime('horainicio_hor')->nullable(); // nullable porque no especificaste NOT NULL
             $table->dateTime('horafin_hor')->nullable(); // nullable por la misma razón
             $table->boolean('estado_hor')->default(true); // BIT se convierte en booleano con un valor predeterminado
+            $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('codigo_tcc');
             $table->string('nombre_tcc', 30);
             $table->string('abreviatura_tcc', 5)->nullable();
+            $table->timestamps();
         });
     }
 

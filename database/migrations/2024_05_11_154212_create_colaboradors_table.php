@@ -36,6 +36,7 @@ return new class extends Migration
             $table->foreign('codigo_cgo')->references('codigo_cgo')->on('cargos');
             $table->foreign('codigo_rp')->references('codigo_rp')->on('regimen_pensionarios');
             $table->foreign('codigo_eps')->references('codigo_eps')->on('eps');
+            $table->timestamps();
         });
     }
 

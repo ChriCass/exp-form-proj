@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre_tdoc', 50);
             $table->string('abreviatura_tdoc', 5);
             $table->boolean('estado_tdoc')->default(true); // bit se traduce a boolean y establece el valor por defecto
+            $table->timestamps();
         });
     }
 

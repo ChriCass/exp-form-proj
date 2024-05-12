@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre_are', 120);
             $table->string('abreviatura_are', 10);
             $table->boolean('estado_are')->default(true); // BIT se convierte en booleano
+            $table->timestamps();
         });
     }
 

@@ -22,6 +22,7 @@ return new class extends Migration
 
             // Clave foránea
             $table->foreign('codigo_hor')->references('codigo_hor')->on('horarios');
+            $table->timestamps();
         });
     }
 
