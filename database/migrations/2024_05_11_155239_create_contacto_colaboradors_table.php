@@ -23,7 +23,7 @@ return new class extends Migration
             $table->dateTime('fecha_eli')->nullable();
 
             // Definiciones de las claves foráneas
-            $table->foreign('codigo_col')->references('codigo_col')->on('colaboradores');
+            $table->foreign('codigo_col')->references('codigo_col')->on('colaboradors');
             $table->foreign('codigo_tcc')->references('codigo_tcc')->on('tipo_contacto_colaboradors');
             $table->timestamps();
         });

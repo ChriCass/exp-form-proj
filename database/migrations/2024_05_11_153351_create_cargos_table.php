@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('cargos', function (Blueprint $table) {
             $table->id('codigo_cgo'); // ID autoincremental y clave primaria
-            $table->foreignId('codigo_are')->constrained('areas'); // Clave foránea que referencia a la tabla 'areas'
+            $table->unsignedBigInteger('codigo_are'); // Clave foránea sin el helper foreignId para mayor claridad
             $table->string('nombre_cgo', 100);
             $table->string('abreviatura_cgo', 5);
             $table->boolean('estado_cgo')->default(true); // BIT se convierte en booleano
-              // Establece la clave foránea que referencia la columna 'codigo_are' en la tabla 'areas'
-              $table->foreign('codigo_are', 'FK_Cargo_Area')
-              ->references('codigo_are')
-              ->on('areas')
-              ->onDelete('restrict') // Opción para manejar la eliminación en 'areas'
-              ->onUpdate('cascade'); // Opción para manejar la actualización en 'areas'
-              $table->timestamps();
+    
+            // Establece la clave foránea que referencia la columna 'codigo_are' en la tabla 'areas'
+            $table->foreign('codigo_are', 'FK_Cargo_Area')
+                ->references('codigo_are') // Asegúrate de que esta es la columna correcta
+                ->on('areas')
+                ->onDelete('restrict') // Opción para manejar la eliminación en 'areas'
+                ->onUpdate('cascade'); // Opción para manejar la actualización en 'areas'
+            $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
