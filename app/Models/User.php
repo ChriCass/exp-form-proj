@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'codigo_col', // Añadir este campo
+        'codigo_rol', // Añadir este campo
+        'estado_usu', // Añadir este campo
     ];
 
     /**

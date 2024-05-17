@@ -61,6 +61,51 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="codigo_col" class="col-md-4 col-form-label text-md-end">{{ __('Codigo Colaborador') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="codigo_col" type="number" class="form-control @error('codigo_col') is-invalid @enderror" name="codigo_col" value="{{ old('codigo_col') }}" required autocomplete="codigo_col">
+
+                                @error('codigo_col')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="codigo_rol" class="col-md-4 col-form-label text-md-end">{{ __('Codigo Rol') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="codigo_rol" type="number" class="form-control @error('codigo_rol') is-invalid @enderror" name="codigo_rol" value="{{ old('codigo_rol') }}" required autocomplete="codigo_rol">
+
+                                @error('codigo_rol')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="estado_usu" class="col-md-4 col-form-label text-md-end">{{ __('Estado Usuario') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="estado_usu" class="form-control @error('estado_usu') is-invalid @enderror" name="estado_usu" required>
+                                    <option value="1" {{ old('estado_usu') == 1 ? 'selected' : '' }}>Activo</option>
+                                    <option value="0" {{ old('estado_usu') == 0 ? 'selected' : '' }}>Inactivo</option>
+                                </select>
+
+                                @error('estado_usu')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
