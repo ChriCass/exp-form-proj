@@ -16,11 +16,11 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body class="sc">
+<body class="bg-dark">
     <main class="container bg-white shadow rounded mt-5">
         <div class="row align-items-stretch">
-            <div class="col p-0 d-flex d-none mt-5 d-lg-block col-lg-5 col-xl-6 rounded">
-                <img src="{{ asset('img/rpu.jpg') }}" class="bg rounded" alt="">
+            <div class="col p-0 d-flex d-none   d-lg-block col-lg-5 col-xl-6 rounded">
+                <img src="{{ asset('images/hr-img.webp') }}" class="bg rounded" alt="">
             </div>
             <div class="col p-5 rounded-end">
                 <div class="text-end">
@@ -60,7 +60,7 @@
                     </div>
                     
                     <div class="d-flex my-3">
-                        <button type="submit" class="btn btn-primary w-100 text-light">
+                        <button type="submit" class="btn btn-dark w-100 text-light">
                             Ingresar
                         </button>
                     </div>
