@@ -26,7 +26,7 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
-
+@livewireStyles
 <body>
 
             <!-- Page Loader -->
@@ -633,5 +633,6 @@
     <script src="{{ asset('js/bundles/apexcharts.min.js') }}"></script> 
     <script src="{{ asset('js/pages/index.js') }}"></script>  
     <script src="{{ asset('js/pages/todo/todo.js') }}"></script>  
+    @livewireScripts
 </body>
 </html>
