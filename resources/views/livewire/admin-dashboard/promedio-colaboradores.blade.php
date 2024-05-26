@@ -3,16 +3,16 @@
         <div class="info-box-5 p-4">
             <div class="card-icon card-icon-large"><i class="fas fa-tasks"></i></div>
             <div class="mb-4">
-                <h5 class="font-20 mb-0">Running Tasks</h5>
+                <h5 class="font-20 mb-0">Promedio Colaboradores</h5>
             </div>
             <div class="row align-items-center mb-2 d-flex">
                 <div class="col-8">
                     <h2 class="d-flex align-items-center mb-0">
-                        10,225
+                        {{ number_format($promedioPorArea, 2) }}
                     </h2>
                 </div>
                 <div class="col-4 text-end">
-                    <span>16% <i class="fa fa-arrow-up"></i></span>
+                    <span>en Areas <i class="fa fa-arrow-up"></i></span>
                 </div>
             </div>
             <div class="progress mt-1 " data-height="8" style="height: 8px;">
