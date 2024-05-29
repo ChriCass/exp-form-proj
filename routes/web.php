@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ColaboradorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +30,7 @@ Route::get('/admin', function () {
 Route::get('/user', function () {
     return view('user.home');
 })->middleware('role:2');
+
+Route::middleware(['auth', 'role:1'])->group(function () {
+    Route::resource('colaboradors', ColaboradorController::class);
+});
