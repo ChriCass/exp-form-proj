@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Colaborador;
+
 class ColaboradorController extends Controller
 {
     /**
@@ -12,8 +13,15 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-       $collaboradors = Colaborador::all();
-       return view('admin.colaboradors.index', compact('collaboradors'));
+        $collaboradors = Colaborador::with([
+            'sexo:nombre_sex,codigo_sex',
+            'tipoDocumento:nombre_tdoc,codigo_tdoc',
+            'regimenPensionario:nombre_rp,codigo_rp',
+            'eps:nombre_eps,codigo_eps',
+            'cargo:nombre_cgo,codigo_cgo'
+        ])->get();
+
+        return view('admin.collaboradors.index', compact('collaboradors'));
     }
 
     /**
