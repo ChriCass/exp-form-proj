@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Colaborador;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ColaboradorRequest;
 
 class ColaboradorController extends Controller
 {
@@ -29,13 +31,19 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-        //
+        $tipoDocumentos = DB::table('tipo_documentos')->get();
+        $sexos = DB::table('sexos')->get();
+        $cargos = DB::table('cargos')->get();
+        $regimenesPensionarios = DB::table('regimen_pensionarios')->get();
+        $epss = DB::table('eps')->get();
+
+        return view('admin.collaboradors.create', compact('tipoDocumentos', 'sexos', 'cargos', 'regimenesPensionarios', 'epss'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ColaboradorRequest $request)
     {
         //
     }
