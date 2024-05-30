@@ -36,7 +36,7 @@
             <div class="m-t-30">
                 <img class="loading-img-spin" src="assets/images/loading.png" alt="admin">
             </div>
-            <p>Please wait...</p>
+            <p>un momento por favor...</p>
         </div>
     </div>
     <!-- #END# Page Loader -->
@@ -50,7 +50,7 @@
                 <a href="#" onClick="return false;" class="navbar-toggle collapsed" data-bs-toggle="collapse"
                     data-bs-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="#" onClick="return false;" class="bars"></a>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="assets/images/logo.png" alt="" />
                     <span class="logo-name">GestionHR</span>
                 </a>
@@ -237,19 +237,19 @@
                 <ul class="list">
                     <li class="sidebar-user-panel active">
                         <div class="user-panel">
-                            <div class=" image">
+                            <div class=" image  ">
                                 <img src="{{ asset('images/usrbig.jpg') }}" class="user-img-style"
                                     alt="User Image" />
                             </div>
                         </div>
                         <div class="profile-usertitle">
-                            <div class="sidebar-userpic-name"> Emily Smith </div>
-                            <div class="profile-usertitle-job ">Manager </div>
+                            <div class="sidebar-userpic-name">{{ Auth::user()->nombre_usuario }}</div>
+                            <div class="profile-usertitle-job">{{ Auth::user()->email }}</div>
                         </div>
                     </li>
                     <li class="header">-- Principal</li>
-                    <li class="active">
-                        <a href="pages/apps/portfolio.html">
+                    <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
+                        <a href="{{ route('home') }}">
                             <i data-feather="monitor"></i>
                             <span>Panel principal</span>
                         </a>
@@ -260,11 +260,11 @@
                             <span>Colaboradores</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="{{ route('colaboradors.index') }}">Todos los Colaboradores</a>
+                            <li class="{{ Route::currentRouteName() == 'colaboradors.index' ? 'active' : '' }}">
+                                <a href="{{ route('colaboradors.index') }}"><span>Todos los Colaboradores</span></a>
                             </li>
-                            <li>
-                                <a href="{{ route('colaboradors.create') }}">Añadir Colaborador</a>
+                            <li class="{{ Route::currentRouteName() == 'colaboradors.create' ? 'active' : '' }}">
+                                <a href="{{ route('colaboradors.create') }}"><span>Añadir Colaborador</span></a>
                             </li>
                         </ul>
                     </li>

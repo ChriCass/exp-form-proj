@@ -11,11 +11,11 @@
                             <h4 class="page-title">Todos los Colaboradores</h4>
                         </li>
                         <li class="breadcrumb-item bcrumb-1">
-                            <a href="../../index.html">
+                            <a href="{{ route('home') }}">
                                 <i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="breadcrumb-item bcrumb-2">
-                            <a href="#" onClick="return false;">Colaboradores</a>
+                            <a href="{{ route('colaboradors.index') }}" onClick="return false;">Colaboradores</a>
                         </li>
                         <li class="breadcrumb-item active">Todos los Colaboradores</li>
                     </ul>
