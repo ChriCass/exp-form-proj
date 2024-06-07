@@ -254,7 +254,7 @@
                             <span>Panel principal</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.create']) ? 'active' : '' }}">
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="users"></i>
                             <span>Colaboradores</span>
@@ -268,6 +268,7 @@
                             </li>
                         </ul>
                     </li>
+                    
                     <li>
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="briefcase"></i>
