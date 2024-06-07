@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ColaboradorRequest extends FormRequest
 {
@@ -21,9 +22,16 @@ class ColaboradorRequest extends FormRequest
      */
     public function rules(): array
     {
+        $colaboradorId = $this->route('codigo_col') ?? $this->codigo_col;
+
         return [
             'codigo_tdoc' => 'required|exists:tipo_documentos,codigo_tdoc',
-            'numerodoc_col' => 'required|string|max:16|unique:colaboradors,numerodoc_col',
+            'numerodoc_col' => [
+                'required',
+                'string',
+                'max:16',
+                Rule::unique('colaboradors', 'numerodoc_col')->ignore($colaboradorId, 'codigo_col')
+            ],
             'apellidopaterno_col' => 'required|string|max:50',
             'apellidomaterno_col' => 'required|string|max:50',
             'nombres_col' => 'required|string|max:100',
@@ -37,6 +45,7 @@ class ColaboradorRequest extends FormRequest
             'estado_col' => 'required|boolean',
         ];
     }
+
     public function messages()
     {
         return [
@@ -59,3 +68,4 @@ class ColaboradorRequest extends FormRequest
         ];
     }
 }
+

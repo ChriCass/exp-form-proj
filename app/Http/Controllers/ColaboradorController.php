@@ -31,21 +31,7 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-        $tipoDocumentos = DB::table('tipo_documentos')->get();
-        $sexos = DB::table('sexos')->get();
-        $cargos = DB::table('cargos')->get();
-        $regimenesPensionarios = DB::table('regimen_pensionarios')->get();
-        $epss = DB::table('eps')->get();
-
-        return view('admin.collaboradors.create', compact('tipoDocumentos', 'sexos', 'cargos', 'regimenesPensionarios', 'epss'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(ColaboradorRequest $request)
-    {
-        //
+        return view('admin.collaboradors.create');
     }
 
     /**
@@ -59,17 +45,19 @@ class ColaboradorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $codigo_col)
     {
-        //
+        $colaborador = Colaborador::findOrFail($codigo_col);
+
+        return view('admin.collaboradors.edit', compact('colaborador'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ColaboradorRequest $request, string $codigo_col)
     {
-        //
+ 
     }
 
     /**

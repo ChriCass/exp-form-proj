@@ -83,10 +83,10 @@
                                         <td class="center">{{ $colaborador->regimenPensionario->nombre_rp }}</td>
                                         <td class="center">{{ $colaborador->eps->nombre_eps }}</td>
                                         <td class="center">
-                                            <a   class="btn btn-tbl-edit">
+                                            <a href="{{ route('colaboradors.edit', $colaborador->codigo_col) }}" class="btn btn-tbl-edit">
                                                 <i class="material-icons">create</i>
                                             </a>
-                                            <form   method="POST" style="display:inline;">
+                                            <form  method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-tbl-delete">
@@ -97,6 +97,7 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>
