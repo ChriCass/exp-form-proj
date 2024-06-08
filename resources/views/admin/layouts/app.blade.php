@@ -16,7 +16,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- You can choose a theme from css/styles instead of get all themes -->
     <link href="{{ asset('css/styles/all-themes.css') }}" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -254,13 +254,13 @@
                             <span>Panel principal</span>
                         </a>
                     </li>
-                    <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.create']) ? 'active' : '' }}">
+                    <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.create', 'colaboradors.show']) ? 'active' : '' }}">
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="users"></i>
                             <span>Colaboradores</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="{{ Route::currentRouteName() == 'colaboradors.index' ? 'active' : '' }}">
+                            <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.show']) ? 'active' : '' }}">
                                 <a href="{{ route('colaboradors.index') }}"><span>Todos los Colaboradores</span></a>
                             </li>
                             <li class="{{ Route::currentRouteName() == 'colaboradors.create' ? 'active' : '' }}">
@@ -268,6 +268,7 @@
                             </li>
                         </ul>
                     </li>
+                    
                     
                     <li>
                         <a href="#" onClick="return false;" class="menu-toggle">

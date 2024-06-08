@@ -37,9 +37,15 @@ class ColaboradorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $codigo_col)
     {
-        //
+        // Encuentra el colaborador por su ID
+        $colaborador = Colaborador::with([
+            'tipoDocumento', 'sexo', 'cargo', 'regimenPensionario', 'eps'
+        ])->findOrFail( $codigo_col);
+
+        // Retorna la vista con los detalles del colaborador
+        return view('admin.collaboradors.show', compact('colaborador'));
     }
 
     /**

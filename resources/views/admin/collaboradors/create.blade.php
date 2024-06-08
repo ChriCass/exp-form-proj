@@ -9,16 +9,16 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul class="breadcrumb breadcrumb-style ">
                         <li class="breadcrumb-item">
-                            <h4 class="page-title">Employees</h4>
+                            <h4 class="page-title">Todos los Colaboradores</h4>
                         </li>
                         <li class="breadcrumb-item bcrumb-1">
-                            <a href="../../index.html">
-                                <i class="fas fa-home"></i> Home</a>
+                            <a href="{{ route('home') }}">
+                                <i class="fas fa-home"></i> Inicio</a>
                         </li>
                         <li class="breadcrumb-item bcrumb-2">
-                            <a href="#" onClick="return false;">Employees</a>
+                            <a href="{{ route('colaboradors.index') }}" onClick="return false;">Colaboradores</a>
                         </li>
-                        <li class="breadcrumb-item active">Add Employee</li>
+                        <li class="breadcrumb-item active">Añadir Colaborador</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            <strong>Add</strong> Employee</h2>
+                            <strong>Añadir</strong> Colaborador</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
