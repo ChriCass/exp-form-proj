@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Colaborador;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ColaboradorRequest;
-
+use Illuminate\Support\Facades\Log;
 class ColaboradorController extends Controller
 {
     /**
@@ -69,8 +69,19 @@ class ColaboradorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $codigo_col)
     {
-        //
+        try {
+            $colaborador = Colaborador::findOrFail($codigo_col);
+            $colaborador->delete();
+
+            Log::info("Colaborador eliminado exitosamente: ID {$codigo_col}");
+
+            return redirect()->route('colaboradors.index')->with('success', 'Colaborador eliminado exitosamente.');
+        } catch (\Exception $e) {
+            Log::error("Error al eliminar el colaborador: " . $e->getMessage());
+
+            return redirect()->route('colaboradors.index')->with('error', 'Hubo un error al eliminar el colaborador.');
+        }
     }
 }

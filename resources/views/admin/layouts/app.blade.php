@@ -50,10 +50,11 @@
                 <a href="#" onClick="return false;" class="navbar-toggle collapsed" data-bs-toggle="collapse"
                     data-bs-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="#" onClick="return false;" class="bars"></a>
-                <a class="navbar-brand" href="{{ route('home') }}">
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
                     <img src="assets/images/logo.png" alt="" />
                     <span class="logo-name">GestionHR</span>
                 </a>
+                
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="pull-left">
@@ -248,12 +249,13 @@
                         </div>
                     </li>
                     <li class="header">-- Principal</li>
-                    <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
-                        <a href="{{ route('home') }}">
+                    <li class="{{ Route::currentRouteName() == 'admin.home' ? 'active' : '' }}">
+                        <a href="{{ route('admin.home') }}">
                             <i data-feather="monitor"></i>
-                            <span>Panel principal</span>
+                            <span>Panel de Administración</span>
                         </a>
                     </li>
+                    
                     <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.create', 'colaboradors.show']) ? 'active' : '' }}">
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="users"></i>

@@ -19,12 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+ 
 // Ruta para el dashboard del administrador
 Route::get('/admin', function () {
     return view('admin.home');
-})->middleware('role:1');
+})->name('admin.home')->middleware('role:1');
+
 
 // Ruta para el dashboard del usuario
 Route::get('/user', function () {
