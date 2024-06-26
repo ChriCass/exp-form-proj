@@ -18,7 +18,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="breadcrumb breadcrumb-style ">
                             <li class="breadcrumb-item">
-                                <h4 class="page-title">Todos los Contratos</h4>
+                                <h4 class="page-title">Todos los Horarios</h4>
                             </li>
                             <li class="breadcrumb-item bcrumb-1">
                                 <a href="{{ route('admin.home') }}">
@@ -27,9 +27,9 @@
                             </li>
                             
                             <li class="breadcrumb-item bcrumb-2">
-                                <a href="{{ route('contratos.index') }}" onClick="return false;">Contratos</a>
+                                <a href="{{ route('horarios.index') }}" onClick="return false;">Horarios</a>
                             </li>
-                            <li class="breadcrumb-item active">Todos los Contratos</li>
+                            <li class="breadcrumb-item active">Todos los Horarios</li>
                         </ul>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                <strong>Todos</strong> los Contratos
+                                <strong>Todos</strong> los Horarios
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -66,38 +66,26 @@
                                 <table id="basicTable" class="table table-hover table-checkable order-column contact_list">
                                     <thead>
                                         <tr>
-                                            <th class="center">Código de contrato</th>
-                                            <th class="center">Colaborador</th>
+                                            <th class="center">Código de horario</th>
                                             <th class="center">Hora de inicio</th>
                                             <th class="center">Hora final</th>
-                                            <th class="center">Fecha de inicio</th>
-                                            <th class="center">Fecha final</th>
-                                            <th class="center">Remuneración</th>
                                             <th class="center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($contratos as $contrato)
+                                        @foreach($horarios as $horario)
                                         <tr class="odd gradeX">
-                                            <td class="center">{{ $contrato->codigo_cco }}</td>
+                                            <td class="center">{{ $horario->codigo_hor }}</td>
+                                            <td class="center">{{ $horario->horainicio_hor }}</td>
+                                            <td class="center">{{ $horario->horafin_hor }}</td>
                                             <td class="center">
-                                                {{ $contrato->colaborador->nombres_col }} 
-                                                {{ $contrato->colaborador->apellidopaterno_col }} 
-                                                {{ $contrato->colaborador->apellidomaterno_col }}
-                                            </td>
-                                            <td class="center">{{ $contrato->horario->horainicio_hor }}</td>
-                                            <td class="center">{{ $contrato->horario->horafin_hor }}</td>
-                                            <td class="center">{{ $contrato->fechainicio_cco }}</td>
-                                            <td class="center">{{ $contrato->fechafin_cco }}</td>
-                                            <td class="center">{{ $contrato->remuneracion_cco }}</td>
-                                            <td class="center">
-                                                <a href="{{ route('contratos.edit', $contrato->codigo_cco) }}" class="btn btn-tbl-edit">
+                                                <a href="{{ route('horarios.edit', $horario->codigo_hor) }}" class="btn btn-tbl-edit">
                                                     <i class="material-icons">create</i>
                                                 </a>
-                                                <button type="button" class="btn btn-tbl-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-codigo="{{ $contrato->codigo_cco }}">
+                                                <button type="button" class="btn btn-tbl-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-codigo="{{ $horario->codigo_hor }}">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button>
-                                                <a href="{{ route('contratos.show', $contrato->codigo_cco) }}" class="btn btn-info">Ver Detalles</a>
+                                                <a href="{{ route('horarios.show', $horario->codigo_hor) }}" class="btn btn-info">Ver Detalles</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -120,7 +108,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este contratos?
+                        ¿Estás seguro de que deseas eliminar este horario?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -141,7 +129,7 @@
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
                 var codigoCol = button.getAttribute('data-codigo');
-                var action = '{{ route("contratos.destroy", ["contrato" => ":codigo_cco"]) }}';
+                var action = '{{ route("horarios.destroy", ["horario" => ":codigo_hor"]) }}';
                 action = action.replace(':codigo_cco', codigoCco);
                 var form = document.getElementById('deleteForm');
                 form.action = action;

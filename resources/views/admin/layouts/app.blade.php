@@ -292,13 +292,11 @@
                             <span>Horarios</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/attendance/today-attend.html">Todos los Horarios </a>
-                            <li>
-                                <a href="pages/attendance/emp-attend.html">Añadir horario</a>
+                            <li class="{{ in_array(Route::currentRouteName(), ['horarios.index', 'horarios.show']) ? 'active' : '' }}">
+                                <a href="{{ route('horarios.index') }}"><span>Todos los Horarios</span></a>
                             </li>
-                            <li>
-                                <a href="pages/attendance/emp-attend.html">Editar horario</a>
+                            <li class="{{ Route::currentRouteName() == 'horarios.create' ? 'active' : '' }}">
+                                <a href="{{ route('horarios.create') }}"><span>Añadir Horario</span></a>
                             </li>
                         </ul>
                     </li>

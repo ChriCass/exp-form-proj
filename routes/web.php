@@ -36,4 +36,5 @@ Route::get('/user', function () {
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('colaboradors', ColaboradorController::class);
     Route::resource('contratos', ContratoColaboradorController::class);
+    Route::resource('horarios', HorarioController::class);
 });
