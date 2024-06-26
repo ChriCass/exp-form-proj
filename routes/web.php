@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\ContratoColaboradorController;
+use App\Http\Controllers\HorarioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,4 +35,5 @@ Route::get('/user', function () {
 
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('colaboradors', ColaboradorController::class);
+    Route::resource('contratos', ContratoColaboradorController::class);
 });

@@ -278,14 +278,11 @@
                             <span>Contratos</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/projects/all-projects.html">Todos los contratos</a>
+                            <li class="{{ in_array(Route::currentRouteName(), ['contratos.index', 'contratos.show']) ? 'active' : '' }}">
+                                <a href="{{ route('contratos.index') }}"><span>Todos los Contratos</span></a>
                             </li>
-                            <li>
-                                <a href="pages/projects/add-project.html">Añadir Contrato</a>
-                            </li>
-                            <li>
-                                <a href="pages/projects/edit-project.html">Editar Contrato</a>
+                            <li class="{{ Route::currentRouteName() == 'contratos.create' ? 'active' : '' }}">
+                                <a href="{{ route('contratos.create') }}"><span>Añadir Contrato</span></a>
                             </li>
                         </ul>
                     </li>

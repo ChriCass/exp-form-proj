@@ -13,12 +13,13 @@
                         </li>
                         <li class="breadcrumb-item bcrumb-1">
                             <a href="{{ route('admin.home') }}">
-                                <i class="fas fa-home"></i> Inicio</a>
+                                <i class="fas fa-home"></i> Inicio
+                            </a>
                         </li>
                         <li class="breadcrumb-item bcrumb-2">
                             <a href="{{ route('colaboradors.index') }}" onClick="return false;">Colaboradores</a>
                         </li>
-                        <li class="breadcrumb-item active">Añadir Colaborador</li>
+                        <li class="breadcrumb-item active">Editar Colaborador</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +29,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            <strong>Añadir</strong> Colaborador</h2>
+                            <strong>Editar</strong> Colaborador</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
@@ -49,7 +50,7 @@
                             </li>
                         </ul>
                     </div>
-                    @livewire('admin-dashboard.colaboradors.colaborador-form')
+                    @livewire('admin-dashboard.colaboradors.edit-colaborador-form', ['codigo_col' => $colaborador->codigo_col])
                 </div>
             </div>
         </div>
