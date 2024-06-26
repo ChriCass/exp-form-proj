@@ -68,10 +68,10 @@
                                         <tr>
                                             <th class="center">Código de contrato</th>
                                             <th class="center">Colaborador</th>
-                                            <th class="center">Hora inicio</th>
-                                            <th class="center">Hora fin</th>
-                                            <th class="center">Fecha inicio</th>
-                                            <th class="center">Fecha fin</th>
+                                            <th class="center">Hora de inicio</th>
+                                            <th class="center">Hora final</th>
+                                            <th class="center">Fecha de inicio</th>
+                                            <th class="center">Fecha final</th>
                                             <th class="center">Remuneración</th>
                                             <th class="center">Acciones</th>
                                         </tr>

@@ -9,7 +9,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul class="breadcrumb breadcrumb-style ">
                         <li class="breadcrumb-item">
-                            <h4 class="page-title">Todos los Colaboradores</h4>
+                            <h4 class="page-title">Todos los Contratos</h4>
                         </li>
                         <li class="breadcrumb-item bcrumb-1">
                             <a href="{{ route('admin.home') }}">
@@ -17,9 +17,9 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item bcrumb-2">
-                            <a href="{{ route('colaboradors.index') }}" onClick="return false;">Colaboradores</a>
+                            <a href="{{ route('contratos.index') }}" onClick="return false;">Contratos</a>
                         </li>
-                        <li class="breadcrumb-item active">Editar Colaborador</li>
+                        <li class="breadcrumb-item active">Editar Contratos</li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            <strong>Editar</strong> Colaborador</h2>
+                            <strong>Editar</strong> Contrato</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
@@ -50,7 +50,7 @@
                             </li>
                         </ul>
                     </div>
-                    @livewire('admin-dashboard.colaboradors.edit-colaborador-form', ['codigo_col' => $colaborador->codigo_col])
+                    @livewire('admin-dashboard.contratos.edit-contrato-form', ['codigo_cco' => $contrato->codigo_cco])
                 </div>
             </div>
         </div>
