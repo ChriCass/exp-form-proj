@@ -101,13 +101,13 @@
                 <!-- Estado -->
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="estado_cco">Estado</label>
-                        <select id="estado_cco" class="form-control @error('estado_cco') is-invalid @enderror" wire:model="estado_cco">
+                        <label for="estado_cto">Estado</label>
+                        <select id="estado_cto" class="form-control @error('estado_cto') is-invalid @enderror" wire:model="estado_cto">
                             <option value="">Selecciona estado</option>
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
-                        @error('estado_cco')
+                        @error('estado_cto')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -66,18 +66,30 @@
                                 <table id="basicTable" class="table table-hover table-checkable order-column contact_list">
                                     <thead>
                                         <tr>
-                                            <th class="center">Código de horario</th>
-                                            <th class="center">Hora de inicio</th>
-                                            <th class="center">Hora final</th>
-                                            <th class="center">Acciones</th>
+                                            <th class="center" colspan="3">Horario</th>
+                                            <th class="center" colspan="4">Detalle</th>
+                                            <th class="center" rowspan="2">Acciones</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="center">Código</th>
+                                            <th class="center">Inicio</th>
+                                            <th class="center">Fin</th>
+                                            <th class="center">Inicio</th>
+                                            <th class="center">Fin</th>
+                                            <th class="center">Tipo</th>
+                                            <th class="center">Día</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($horarios as $horario)
                                         <tr class="odd gradeX">
-                                            <td class="center">{{ $horario->codigo_hor }}</td>
-                                            <td class="center">{{ $horario->horainicio_hor }}</td>
-                                            <td class="center">{{ $horario->horafin_hor }}</td>
+                                            <td class="center">{{ $horario->horario->codigo_hor }}</td>
+                                            <td class="center">{{ $horario->horario->horainicio_hor }}</td>
+                                            <td class="center">{{ $horario->horario->horafin_hor }}</td>
+                                            <td class="center">{{ $horario->horainicio_dho }}</td>
+                                            <td class="center">{{ $horario->horafin_dho }}</td>
+                                            <td class="center">{{ $horario->tipo_dho }}</td>
+                                            <td class="center">{{ $horario->dia_dho }}</td>
                                             <td class="center">
                                                 <a href="{{ route('horarios.edit', $horario->codigo_hor) }}" class="btn btn-tbl-edit">
                                                     <i class="material-icons">create</i>

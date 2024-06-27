@@ -73,7 +73,7 @@
                                 <p><strong>Fecha de Inicio:</strong> {{ $contrato->fechainicio_cco }}</p>
                                 <p><strong>Fecha Final:</strong> {{ $contrato->fechafin_cco }}</p>
                                 <p><strong>Remuneración:</strong> {{ $contrato->remuneracion_cco }}</p>
-                                <p><strong>Estado:</strong> {{ $contrato->estado_cco ? 'Activo' : 'Inactivo' }}</p>
+                                <p><strong>Estado:</strong> {{ $contrato->estado_cto ? 'Activo' : 'Inactivo' }}</p>
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('contratos.index') }}" class="btn btn-secondary">Volver</a>

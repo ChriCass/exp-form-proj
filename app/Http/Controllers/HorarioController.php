@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Horario;
+use App\Models\DetalleHorario;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\HorarioRequest;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,8 @@ class HorarioController extends Controller
      */
     public function index()
     {
-        $horarios = Horario::with([
+        $horarios = DetalleHorario::with([
+            'horario:horainicio_hor,horafin_hor,codigo_hor'
         ])->get();
 
         return view('admin.horarios.index', compact('horarios'));
@@ -32,12 +34,12 @@ class HorarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $codigo_cco)
+    public function show(string $codigo_hor)
     {
         // Encuentra el horario por su ID
-        $horario = Horario::with([
-            
-        ])->findOrFail($codigo_cco);
+        $horario = DetalleHorario::with([
+            'horarios'
+        ])->findOrFail($codigo_hor);
 
         // Retorna la vista con los detalles del horario
         return view('admin.horarios.show', compact('horario'));
@@ -46,9 +48,9 @@ class HorarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $codigo_cco)
+    public function edit(string $codigo_hor)
     {
-        $horario = Horario::findOrFail($codigo_cco);
+        $horario = Horario::findOrFail($codigo_hor);
 
         return view('admin.horarios.edit', compact('horario'));
     }
@@ -56,7 +58,7 @@ class HorarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(HorarioRequest $request, string $codigo_cco)
+    public function update(HorarioRequest $request, string $codigo_hor)
     {
  
     }
@@ -64,13 +66,13 @@ class HorarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $codigo_cco)
+    public function destroy(string $codigo_hor)
     {
         try {
-            $horario = Horario::findOrFail($codigo_cco);
+            $horario = Horario::findOrFail($codigo_hor);
             $horario->delete();
 
-            Log::info("Horario eliminado exitosamente: ID {$codigo_cco}");
+            Log::info("Horario eliminado exitosamente: ID {$codigo_hor}");
 
             return redirect()->route('horarios.index')->with('success', 'horario eliminado exitosamente.');
         } catch (\Exception $e) {

@@ -18,7 +18,7 @@ class ContratoForm extends Component
     public $fechainicio_cco;
     public $fechafin_cco;
     public $remuneracion_cco;
-    public $estado_cco;
+    public $estado_cto;
 
 
     public function mount()
@@ -49,7 +49,7 @@ class ContratoForm extends Component
             'fechainicio_cco' => $this->fechainicio_cco,
             'fechafin_cco' => $this->fechafin_cco,
             'remuneracion_cco' => $this->remuneracion_cco,
-            'estado_cco' => $this->estado_cco,
+            'estado_cto' => $this->estado_cto,
         ];
     }
     public function render()

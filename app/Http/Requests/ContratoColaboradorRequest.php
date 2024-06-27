@@ -42,8 +42,8 @@ class ContratoColaboradorRequest extends FormRequest
             'fechainicio_cco.date' => 'La fecha de inicio no es válida.',
             'fechafin_cco.date' => 'La fecha final no es válida.',
             'remuneracion_cco.numeric' => 'La remuneración debe ser un número.',
-            'estado_cco.required' => 'El estado es obligatorio.',
-            'estado_cco.boolean' => 'El estado no es válido.',
+            'estado_cto.required' => 'El estado es obligatorio.',
+            'estado_cto.boolean' => 'El estado no es válido.',
         ];
     }
 }
