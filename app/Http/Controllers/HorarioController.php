@@ -37,10 +37,9 @@ class HorarioController extends Controller
     public function show(string $codigo_hor)
     {
         // Encuentra el horario por su ID
-        $horario = DetalleHorario::with([
-            'horarios'
-        ])->findOrFail($codigo_hor);
-
+        $horario = Horario::findOrFail($codigo_hor);
+        $detallehorarios = DetalleHorario::where('codigo_hor', $codigo_hor)->get();
+        $horario->detalles = $detallehorarios;
         // Retorna la vista con los detalles del horario
         return view('admin.horarios.show', compact('horario'));
     }

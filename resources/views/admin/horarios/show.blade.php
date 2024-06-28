@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            <strong>Detalles</strong> del Horario   
+                            <strong>Datos</strong> del Horario   
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
@@ -61,6 +61,15 @@
                                 <p><strong>Hora Final:</strong> {{ $horario->horafin_hor }}</p>
                                 <p><strong>Estado:</strong> {{ $horario->estado_hor ? 'Activo' : 'Inactivo' }}</p>
                             </div>
+                            @foreach($horario->detalles as $detalle)
+                            <div class="card-body">
+                                <p><strong>Detalle de horario</strong></p>
+                                <p>&nbsp;&nbsp;<strong>Hora de Inicio:</strong> {{ $detalle->horainicio_dho }}</p>
+                                <p>&nbsp;&nbsp;<strong>Hora Final:</strong> {{ $detalle->horafin_dho }}</p>
+                                <p>&nbsp;&nbsp;<strong>Día:</strong> {{ $detalle->dia_dho }}</p>
+                                <p>&nbsp;&nbsp;<strong>Tipo:</strong> {{ $detalle->tipo_dho }}</p>
+                            </div>
+                            @endforeach
                             <div class="card-footer">
                                 <a href="{{ route('horarios.index') }}" class="btn btn-secondary">Volver</a>
                             </div>
