@@ -1,6 +1,5 @@
 <div>
-    <div class="container-fluid">
-        @if (session()->has('success'))
+    @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -10,6 +9,24 @@
     @if (session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session()->has('warning'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('warning') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -24,7 +41,7 @@
                         <select id="codigo_col" class="form-control @error('codigo_col') is-invalid @enderror" wire:model="codigo_col" required>
                             <option value="">Selecciona colaborador</option>
                             @foreach($colaboradores as $colaborador)
-                                <option value="{{ $tipoDocumento->codigo_col }}">
+                                <option value="{{ $colaborador->codigo_col }}">
                                     {{ $colaborador->nombres_col }} 
                                     {{ $colaborador->apellidopaterno_col }} 
                                     {{ $colaborador->apellidomaterno_col }}
@@ -44,7 +61,7 @@
                         <select id="codigo_hor" class="form-control @error('codigo_hor') is-invalid @enderror" wire:model="codigo_hor" required>
                             <option value="">Selecciona horario</option>
                             @foreach($horarios as $horario)
-                                <option value="{{ $tipoDocumento->codigo_hor }}">
+                                <option value="{{ $horario->codigo_hor }}">
                                     {{ $horario->horainicio_hor }} - 
                                     {{ $horario->horafin_hor }}
                                 </option>

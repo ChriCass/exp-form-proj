@@ -120,7 +120,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este contratos?
+                        ¿Estás seguro de que deseas eliminar este contrato?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -140,7 +140,7 @@
             var deleteModal = document.getElementById('deleteModal');
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
-                var codigoCol = button.getAttribute('data-codigo');
+                var codigoCco = button.getAttribute('data-codigo');
                 var action = '{{ route("contratos.destroy", ["contrato" => ":codigo_cco"]) }}';
                 action = action.replace(':codigo_cco', codigoCco);
                 var form = document.getElementById('deleteForm');

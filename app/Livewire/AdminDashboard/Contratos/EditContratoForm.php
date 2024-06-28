@@ -3,82 +3,50 @@
 namespace App\Livewire\AdminDashboard\Contratos;
 
 use Livewire\Component;
-use App\Models\Colaborador;
 use App\Models\ContratoColaborador;
-use App\Models\TipoDocumento;
-use App\Models\Sexo;
-use App\Models\Cargo;
-use App\Models\RegimenPensionario;
-use App\Models\Eps;
-use App\Http\Requests\ColaboradorRequest;
+use App\Models\Colaborador;
+use App\Models\Horario;
+use App\Http\Requests\ContratoColaboradorRequest;
 use Illuminate\Support\Facades\Validator;
 
 class EditContratoForm extends Component
 {
-    public $codigo_col;
-    public $codigo_tdoc;
-    public $numerodoc_col;
-    public $apellidopaterno_col;
-    public $apellidomaterno_col;
-    public $nombres_col;
-    public $codigo_sex;
-    public $codigo_cgo;
-    public $codigo_rp;
-    public $codigo_eps;
-    public $remuneracion_col;
-    public $fechaingreso_col;
-    public $fechacese_per;
-    public $estado_col;
+    public $colaboradores;
+    public $horarios;
 
-    public $tipoDocumentos;
-    public $sexos;
-    public $cargos;
-    public $regimenesPensionarios;
-    public $epss;
+    public $codigo_cco;
+    public $codigo_col;
+    public $codigo_hor;
+    public $fechainicio_cco;
+    public $fechafin_cco;
+    public $remuneracion_cco;
+    public $estado_cto;
 
     public $validatedData = []; // Propiedad para almacenar los datos validados
 
     protected $originalData = [];
 
-    public function mount($codigo_col)
+    public function mount($codigo_cco)
     {
-        $colaborador = Colaborador::findOrFail($codigo_col);
+        $contrato = ContratoColaborador::findOrFail($codigo_cco);
 
-        $this->codigo_col = $colaborador->codigo_col;
-        $this->codigo_tdoc = $colaborador->codigo_tdoc;
-        $this->numerodoc_col = $colaborador->numerodoc_col;
-        $this->apellidopaterno_col = $colaborador->apellidopaterno_col;
-        $this->apellidomaterno_col = $colaborador->apellidomaterno_col;
-        $this->nombres_col = $colaborador->nombres_col;
-        $this->codigo_sex = $colaborador->codigo_sex;
-        $this->codigo_cgo = $colaborador->codigo_cgo;
-        $this->codigo_rp = $colaborador->codigo_rp;
-        $this->codigo_eps = $colaborador->codigo_eps;
-        $this->remuneracion_col = $colaborador->remuneracion_col;
-        $this->fechaingreso_col = $colaborador->fechaingreso_col;
-        $this->fechacese_per = $colaborador->fechacese_per;
-        $this->estado_col = $colaborador->estado_col;
+        $this->codigo_col = $contrato->codigo_col;
+        $this->codigo_hor = $contrato->codigo_hor;
+        $this->fechainicio_cco = $contrato->fechainicio_cco;
+        $this->fechafin_cco = $contrato->fechafin_cco;
+        $this->remuneracion_cco = $contrato->remuneracion_cco;
+        $this->estado_cto = $contrato->estado_cto;
 
-        $this->tipoDocumentos = TipoDocumento::all();
-        $this->sexos = Sexo::all();
-        $this->cargos = Cargo::all();
-        $this->regimenesPensionarios = RegimenPensionario::all();
-        $this->epss = Eps::all();
-
+        $this->colaboradores = Colaborador::all();
+        $this->horarios = Horario::all();
+        
         $this->originalData = [
-            'codigo_tdoc' => $this->codigo_tdoc,
-            'numerodoc_col' => $this->numerodoc_col,
-            'apellidopaterno_col' => $this->apellidopaterno_col,
-            'apellidomaterno_col' => $this->apellidomaterno_col,
-            'nombres_col' => $this->nombres_col,
-            'codigo_sex' => $this->codigo_sex,
-            'codigo_cgo' => $this->codigo_cgo,
-            'codigo_rp' => $this->codigo_rp,
-            'codigo_eps' => $this->codigo_eps,
-            'remuneracion_col' => $this->remuneracion_col,
-            'fechaingreso_col' => $this->fechaingreso_col,
-            'fechacese_per' => $this->fechacese_per,
-            'estado_col' => $this->estado_col,
+            'codigo_col' => $this->codigo_col,
+            'codigo_hor' => $this->codigo_hor,
+            'fechainicio_cco' => $this->fechainicio_cco,
+            'fechafin_cco' => $this->fechafin_cco,
+            'remuneracion_cco' => $this->remuneracion_cco,
+            'estado_cto' => $this->estado_cto
         ];
     }
 
@@ -90,30 +58,23 @@ class EditContratoForm extends Component
         if ($data == $this->originalData) {
             session()->flash('warning', 'No se ha editado nada.');
         } else {
-            Colaborador::findOrFail($this->codigo_col)->update($data);
-            session()->flash('success', 'Colaborador actualizado exitosamente.');
+            ContratoColaborador::findOrFail($this->codigo_cco)->update($data);
+            session()->flash('success', 'Contrato actualizado exitosamente.');
         }
     }
 
     protected function validateRequest()
     {
         // Ajustar el objeto request para incluir el código del colaborador
-        $request = ColaboradorRequest::createFromBase(request());
+        $request = ContratoColaboradorRequest::createFromBase(request());
         $request->merge([
+            'codigo_cco' => $this->codigo_cco,
             'codigo_col' => $this->codigo_col,
-            'codigo_tdoc' => $this->codigo_tdoc,
-            'numerodoc_col' => $this->numerodoc_col,
-            'apellidopaterno_col' => $this->apellidopaterno_col,
-            'apellidomaterno_col' => $this->apellidomaterno_col,
-            'nombres_col' => $this->nombres_col,
-            'codigo_sex' => $this->codigo_sex,
-            'codigo_cgo' => $this->codigo_cgo,
-            'codigo_rp' => $this->codigo_rp,
-            'codigo_eps' => $this->codigo_eps,
-            'remuneracion_col' => $this->remuneracion_col,
-            'fechaingreso_col' => $this->fechaingreso_col,
-            'fechacese_per' => $this->fechacese_per,
-            'estado_col' => $this->estado_col,
+            'codigo_hor' => $this->codigo_hor,
+            'fechainicio_cco' => $this->fechainicio_cco,
+            'fechafin_cco' => $this->fechafin_cco,
+            'remuneracion_cco' => $this->remuneracion_cco,
+            'estado_cto' => $this->estado_cto
         ]);
 
         $request->setContainer(app())->setRedirector(app('redirect'));
@@ -124,7 +85,7 @@ class EditContratoForm extends Component
 
     public function render()
     {
-        return view('livewire.admin-dashboard.colaboradors.edit-colaborador-form');
+        return view('livewire.admin-dashboard.contratos.edit-contrato-form');
     }
 }
 

@@ -140,9 +140,9 @@
             var deleteModal = document.getElementById('deleteModal');
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
-                var codigoCol = button.getAttribute('data-codigo');
+                var codigoHor = button.getAttribute('data-codigo');
                 var action = '{{ route("horarios.destroy", ["horario" => ":codigo_hor"]) }}';
-                action = action.replace(':codigo_cco', codigoCco);
+                action = action.replace(':codigo_cco', codigoHor);
                 var form = document.getElementById('deleteForm');
                 form.action = action;
             });
