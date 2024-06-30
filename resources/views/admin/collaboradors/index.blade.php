@@ -8,12 +8,12 @@
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
-            @endif
-            @if(session('error'))
+                @endif
+                @if(session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
                 </div>
-            @endif
+                @endif
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="breadcrumb breadcrumb-style ">
@@ -25,7 +25,6 @@
                                     <i class="fas fa-home"></i> Inicio
                                 </a>
                             </li>
-                            
                             <li class="breadcrumb-item bcrumb-2">
                                 <a href="{{ route('colaboradors.index') }}" onClick="return false;">Colaboradores</a>
                             </li>
@@ -86,13 +85,13 @@
                                                 <img src="{{ asset('path/to/default/image.jpg') }}" alt="Imagen del colaborador">
                                                 <!-- Ajusta el src para la ruta correcta de la imagen del colaborador -->
                                             </td>
-                                            <td class="center">{{ $colaborador->tipoDocumento->nombre_tdoc }}</td>
+                                            <td class="center">{{ $colaborador->tipoDocumento->nombre_tdoc ?? 'N/A' }}</td>
                                             <td class="center">{{ $colaborador->numerodoc_col }}</td>
                                             <td class="center">{{ $colaborador->nombres_col }} {{ $colaborador->apellidopaterno_col }} {{ $colaborador->apellidomaterno_col }}</td>
-                                            <td class="center">{{ $colaborador->sexo->nombre_sex }}</td>
-                                            <td class="center">{{ $colaborador->cargo->nombre_cgo }}</td>
-                                            <td class="center">{{ $colaborador->regimenPensionario->nombre_rp }}</td>
-                                            <td class="center">{{ $colaborador->eps->nombre_eps }}</td>
+                                            <td class="center">{{ $colaborador->sexo->nombre_sex ?? 'N/A' }}</td>
+                                            <td class="center">{{ $colaborador->cargo->nombre_cgo ?? 'N/A' }}</td>
+                                            <td class="center">{{ $colaborador->regimenPensionario->nombre_rp ?? 'N/A' }}</td>
+                                            <td class="center">{{ $colaborador->eps->nombre_eps ?? 'N/A' }}</td>
                                             <td class="center">
                                                 <a href="{{ route('colaboradors.edit', $colaborador->codigo_col) }}" class="btn btn-tbl-edit">
                                                     <i class="material-icons">create</i>
@@ -100,21 +99,20 @@
                                                 <button type="button" class="btn btn-tbl-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-codigo="{{ $colaborador->codigo_col }}">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button>
-                                                <a href="{{ route('colaboradors.show', $colaborador->codigo_col) }}" class="btn btn-info">Ver Detalles</a>
+                                                <a href="{{ route('colaboradors.show', $colaborador->codigo_col) }}" class="btn btn-info btn-sm">Ver Detalles</a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                        @endforeach
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-  
         </div>
+
+        <!-- Modal de eliminación -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

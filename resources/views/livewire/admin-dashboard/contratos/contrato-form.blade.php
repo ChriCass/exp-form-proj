@@ -1,3 +1,4 @@
+
 <div>
     <div class="container-fluid">
         @if (session()->has('success'))
@@ -16,7 +17,6 @@
     <form wire:submit.prevent="submit" enctype="multipart/form-data">
         @csrf
         <div class="body">
-            <!-- Tipo de Documento -->
             <div class="row clearfix">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Fechas de Ingreso y Cese -->
+
             <div class="row clearfix">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -85,8 +85,6 @@
             </div>
 
             <div class="row clearfix">
-    
-                <!-- Remuneración -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="remuneracion_cco">Remuneración</label>
@@ -98,7 +96,6 @@
                         @enderror
                     </div>
                 </div>
-                <!-- Estado -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="estado_cto">Estado</label>
@@ -116,10 +113,9 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="col-lg-12 p-t-20 text-center">
                 <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
-                <button type="reset" class="btn btn-danger waves-effect">Cancel</button>
+                <a href="{{ route('contratos.index') }}" class="btn btn-danger waves-effect">Cancelar</a>
             </div>
         </div>
     </form>

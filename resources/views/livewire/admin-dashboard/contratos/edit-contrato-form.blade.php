@@ -1,27 +1,27 @@
 <div>
     @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if (session()->has('warning'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
             {{ session('warning') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -33,7 +33,6 @@
     <form wire:submit.prevent="submit" enctype="multipart/form-data">
         @csrf
         <div class="body">
-            <!-- Tipo de Documento -->
             <div class="row clearfix">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -75,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Fechas de Ingreso y Cese -->
+
             <div class="row clearfix">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -102,8 +101,6 @@
             </div>
 
             <div class="row clearfix">
-    
-                <!-- Remuneración -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="remuneracion_cco">Remuneración</label>
@@ -115,14 +112,13 @@
                         @enderror
                     </div>
                 </div>
-                <!-- Estado -->
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="estado_cto">Estado</label>
                         <select id="estado_cto" class="form-control @error('estado_cto') is-invalid @enderror" wire:model="estado_cto">
                             <option value="">Selecciona estado</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                            <option value="1" {{ $estado_cto == '1' ? 'selected' : '' }}>Activo</option>
+                            <option value="0" {{ $estado_cto == '0' ? 'selected' : '' }}>Inactivo</option>
                         </select>
                         @error('estado_cto')
                             <span class="invalid-feedback" role="alert">
@@ -133,10 +129,9 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="col-lg-12 p-t-20 text-center">
-                <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
-                <button type="reset" class="btn btn-danger waves-effect">Cancel</button>
+                <button type="submit" class="btn btn-primary waves-effect m-r-15">Actualizar</button>
+                <a href="{{ route('contratos.index') }}" class="btn btn-danger waves-effect">Cancelar</a>
             </div>
         </div>
     </form>

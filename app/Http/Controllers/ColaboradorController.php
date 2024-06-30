@@ -8,6 +8,7 @@ use App\Models\Colaborador;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ColaboradorRequest;
 use Illuminate\Support\Facades\Log;
+
 class ColaboradorController extends Controller
 {
     /**
@@ -21,10 +22,11 @@ class ColaboradorController extends Controller
             'regimenPensionario:nombre_rp,codigo_rp',
             'eps:nombre_eps,codigo_eps',
             'cargo:nombre_cgo,codigo_cgo'
-        ])->get();
+        ])->orderBy('codigo_col', 'asc')->get();
 
         return view('admin.collaboradors.index', compact('collaboradors'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,12 +41,10 @@ class ColaboradorController extends Controller
      */
     public function show(string $codigo_col)
     {
-        // Encuentra el colaborador por su ID
         $colaborador = Colaborador::with([
             'tipoDocumento', 'sexo', 'cargo', 'regimenPensionario', 'eps'
-        ])->findOrFail( $codigo_col);
+        ])->findOrFail($codigo_col);
 
-        // Retorna la vista con los detalles del colaborador
         return view('admin.collaboradors.show', compact('colaborador'));
     }
 
@@ -54,17 +54,29 @@ class ColaboradorController extends Controller
     public function edit(string $codigo_col)
     {
         $colaborador = Colaborador::findOrFail($codigo_col);
-
         return view('admin.collaboradors.edit', compact('colaborador'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ColaboradorRequest $request, string $codigo_col)
+    public function update(Request $request, string $codigo_col)
     {
- 
+        $colaborador = Colaborador::findOrFail($codigo_col);
+
+        if ($colaborador->isClean()) {
+            return redirect()->route('colaboradors.edit', $colaborador->codigo_col)
+                ->with('warning', 'No hay nada que actualizar.');
+        }
+
+        $colaborador->fill($request->all());
+        $colaborador->estado_col = $request->input('estado_col');
+        $colaborador->save();
+
+        return redirect()->route('colaboradors.index')->with('success', 'Colaborador actualizado exitosamente.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

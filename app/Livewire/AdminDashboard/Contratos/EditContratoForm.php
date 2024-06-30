@@ -6,15 +6,14 @@ use Livewire\Component;
 use App\Models\ContratoColaborador;
 use App\Models\Colaborador;
 use App\Models\Horario;
-use App\Http\Requests\ContratoColaboradorRequest;
 use Illuminate\Support\Facades\Validator;
 
 class EditContratoForm extends Component
 {
+    public $contrato;
     public $colaboradores;
     public $horarios;
 
-    public $codigo_cco;
     public $codigo_col;
     public $codigo_hor;
     public $fechainicio_cco;
@@ -22,65 +21,60 @@ class EditContratoForm extends Component
     public $remuneracion_cco;
     public $estado_cto;
 
-    public $validatedData = []; // Propiedad para almacenar los datos validados
-
-    protected $originalData = [];
+    public $originalData = [];
 
     public function mount($codigo_cco)
     {
-        $contrato = ContratoColaborador::findOrFail($codigo_cco);
+        $this->contrato = ContratoColaborador::findOrFail($codigo_cco);
 
-        $this->codigo_col = $contrato->codigo_col;
-        $this->codigo_hor = $contrato->codigo_hor;
-        $this->fechainicio_cco = $contrato->fechainicio_cco;
-        $this->fechafin_cco = $contrato->fechafin_cco;
-        $this->remuneracion_cco = $contrato->remuneracion_cco;
-        $this->estado_cto = $contrato->estado_cto;
+        $this->colaboradores = Colaborador::where('estado_col', true)
+            ->whereDoesntHave('contratos', function($query) use ($codigo_cco) {
+                $query->where('codigo_cco', '!=', $codigo_cco);
+            })
+            ->get();
 
-        $this->colaboradores = Colaborador::all();
         $this->horarios = Horario::all();
-        
+
+        $this->codigo_col = $this->contrato->codigo_col;
+        $this->codigo_hor = $this->contrato->codigo_hor;
+        $this->fechainicio_cco = $this->contrato->fechainicio_cco;
+        $this->fechafin_cco = $this->contrato->fechafin_cco;
+        $this->remuneracion_cco = $this->contrato->remuneracion_cco;
+        $this->estado_cto = $this->contrato->estado_cto ? '1' : '0';
+
         $this->originalData = [
             'codigo_col' => $this->codigo_col,
             'codigo_hor' => $this->codigo_hor,
             'fechainicio_cco' => $this->fechainicio_cco,
             'fechafin_cco' => $this->fechafin_cco,
             'remuneracion_cco' => $this->remuneracion_cco,
-            'estado_cto' => $this->estado_cto
+            'estado_cto' => $this->estado_cto,
         ];
     }
 
     public function submit()
     {
-        $data = $this->validateRequest();
-        $this->validatedData = $data; // Almacena los datos validados en la propiedad pública
+        $validatedData = Validator::make($this->all(), [
+            'codigo_col' => 'required',
+            'codigo_hor' => 'required',
+            'fechainicio_cco' => 'required|date',
+            'fechafin_cco' => 'nullable|date',
+            'remuneracion_cco' => 'required|numeric',
+            'estado_cto' => 'required|in:0,1',
+        ])->validate();
 
-        if ($data == $this->originalData) {
-            session()->flash('warning', 'No se ha editado nada.');
-        } else {
-            ContratoColaborador::findOrFail($this->codigo_cco)->update($data);
-            session()->flash('success', 'Contrato actualizado exitosamente.');
+        // Verificar si los datos son iguales a los originales
+        if ($validatedData == $this->originalData) {
+            session()->flash('warning', 'No hay cambios por actualizar.');
+            return;
         }
-    }
 
-    protected function validateRequest()
-    {
-        // Ajustar el objeto request para incluir el código del colaborador
-        $request = ContratoColaboradorRequest::createFromBase(request());
-        $request->merge([
-            'codigo_cco' => $this->codigo_cco,
-            'codigo_col' => $this->codigo_col,
-            'codigo_hor' => $this->codigo_hor,
-            'fechainicio_cco' => $this->fechainicio_cco,
-            'fechafin_cco' => $this->fechafin_cco,
-            'remuneracion_cco' => $this->remuneracion_cco,
-            'estado_cto' => $this->estado_cto
-        ]);
-
-        $request->setContainer(app())->setRedirector(app('redirect'));
-
-        $validator = Validator::make($request->all(), $request->rules(), $request->messages());
-        return $validator->validate();
+        try {
+            $this->contrato->update($validatedData);
+            return redirect()->route('contratos.index');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Hubo un problema al actualizar el contrato: ' . $e->getMessage());
+        }
     }
 
     public function render()
@@ -88,4 +82,3 @@ class EditContratoForm extends Component
         return view('livewire.admin-dashboard.contratos.edit-contrato-form');
     }
 }
-

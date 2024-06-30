@@ -11,8 +11,11 @@ use App\Models\Cargo;
 use App\Models\RegimenPensionario;
 use App\Models\Eps;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 class ColaboradorForm extends Component
-{  public $tipoDocumentos;
+{
+    public $tipoDocumentos;
     public $sexos;
     public $cargos;
     public $regimenesPensionarios;
@@ -32,9 +35,11 @@ class ColaboradorForm extends Component
     public $fechacese_per;
     public $estado_col;
 
+    public $errorMessages = [];
 
     public function mount()
     {
+        Log::info('Mounting the component');
         $this->tipoDocumentos = TipoDocumento::all();
         $this->sexos = Sexo::all();
         $this->cargos = Cargo::all();
@@ -44,20 +49,38 @@ class ColaboradorForm extends Component
 
     public function submit()
     {
-        $validatedData = Validator::make($this->all(), (new ColaboradorRequest)->rules())->validate();
+        Log::info('Submit function called');
 
-        try {
-            Colaborador::create($validatedData);
-            session()->flash('success', 'Colaborador creado exitosamente.');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Hubo un problema al crear el colaborador: ' . $e->getMessage());
+        $formData = $this->all();
+        Log::info('Form data', $formData);
+
+        $rules = (new ColaboradorRequest)->rules();
+        $messages = (new ColaboradorRequest)->messages();
+
+        $validator = Validator::make($formData, $rules, $messages);
+
+        if ($validator->fails()) {
+            Log::error('Validation failed', ['errors' => $validator->errors()]);
+            $this->errorMessages = $validator->errors()->all();
+            $this->setErrorBag($validator->errors());
+            return;
         }
 
-     
+        try {
+            Log::info('Validation passed, creating Colaborador');
+            Colaborador::create($validator->validated());
+            session()->flash('success', 'Colaborador creado exitosamente.');
+            return redirect()->route('colaboradors.index');
+        } catch (\Exception $e) {
+            Log::error('Exception caught', ['exception' => $e]);
+            session()->flash('error', 'Hubo un problema al crear el colaborador: ' . $e->getMessage());
+            return redirect()->route('colaboradors.index');
+        }
     }
 
     public function all()
     {
+        Log::info('Gathering all form data');
         return [
             'codigo_tdoc' => $this->codigo_tdoc,
             'numerodoc_col' => $this->numerodoc_col,
@@ -74,8 +97,10 @@ class ColaboradorForm extends Component
             'estado_col' => $this->estado_col,
         ];
     }
+
     public function render()
     {
+        Log::info('Rendering the component');
         return view('livewire.admin-dashboard.colaboradors.colaborador-form');
     }
 }

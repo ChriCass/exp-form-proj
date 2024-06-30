@@ -35,9 +35,8 @@ class EditColaboradorForm extends Component
     public $regimenesPensionarios;
     public $epss;
 
-    public $validatedData = []; // Propiedad para almacenar los datos validados
-
-    protected $originalData = [];
+    public $originalData = [];
+    public $validatedData = [];
 
     public function mount($codigo_col)
     {
@@ -56,7 +55,7 @@ class EditColaboradorForm extends Component
         $this->remuneracion_col = $colaborador->remuneracion_col;
         $this->fechaingreso_col = $colaborador->fechaingreso_col;
         $this->fechacese_per = $colaborador->fechacese_per;
-        $this->estado_col = $colaborador->estado_col;
+        $this->estado_col = $colaborador->estado_col ? 1 : 0;
 
         $this->tipoDocumentos = TipoDocumento::all();
         $this->sexos = Sexo::all();
@@ -79,6 +78,9 @@ class EditColaboradorForm extends Component
             'fechacese_per' => $this->fechacese_per,
             'estado_col' => $this->estado_col,
         ];
+
+        // Debug: Registrar datos originales
+        logger()->info('Datos originales en mount: ', $this->originalData);
     }
 
     public function submit()
@@ -86,17 +88,25 @@ class EditColaboradorForm extends Component
         $data = $this->validateRequest();
         $this->validatedData = $data; // Almacena los datos validados en la propiedad pública
 
+        // Debug: Verificar los datos originales y los datos actuales
+        logger()->info('Datos originales al enviar: ', $this->originalData);
+        logger()->info('Datos actuales al enviar: ', $data);
+
+        // Verificar si hay cambios
         if ($data == $this->originalData) {
-            session()->flash('warning', 'No se ha editado nada.');
+            session()->flash('warning', 'No hay nada que actualizar.');
         } else {
-            Colaborador::findOrFail($this->codigo_col)->update($data);
-            session()->flash('success', 'Colaborador actualizado exitosamente.');
+            $colaborador = Colaborador::findOrFail($this->codigo_col);
+            $colaborador->update($data);
+
+            // Redirigir a la lista de colaboradores con un mensaje de éxito
+            return redirect()->route('colaboradors.index')->with('success', 'Colaborador actualizado exitosamente.');
         }
     }
 
+
     protected function validateRequest()
     {
-        // Ajustar el objeto request para incluir el código del colaborador
         $request = ColaboradorRequest::createFromBase(request());
         $request->merge([
             'codigo_col' => $this->codigo_col,
@@ -126,4 +136,3 @@ class EditColaboradorForm extends Component
         return view('livewire.admin-dashboard.colaboradors.edit-colaborador-form');
     }
 }
-

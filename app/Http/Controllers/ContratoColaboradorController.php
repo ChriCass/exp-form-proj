@@ -8,6 +8,7 @@ use App\Models\ContratoColaborador;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ContratoColaboradorRequest;
 use Illuminate\Support\Facades\Log;
+
 class ContratoColaboradorController extends Controller
 {
     /**
@@ -18,7 +19,10 @@ class ContratoColaboradorController extends Controller
         $contratos = ContratoColaborador::with([
             'colaborador:nombres_col,apellidopaterno_col,apellidomaterno_col,codigo_col',
             'horario:horainicio_hor,horafin_hor,codigo_hor',
-        ])->get();
+        ])
+        ->where('estado_cto', 1) // Filtrar por contratos activos
+        ->orderBy('codigo_cco', 'asc') // Ordenar por código de contrato de menor a mayor
+        ->get();
 
         return view('admin.contratos.index', compact('contratos'));
     }
@@ -60,7 +64,6 @@ class ContratoColaboradorController extends Controller
      */
     public function update(ContratoColaboradorRequest $request, string $codigo_cco)
     {
- 
     }
 
     /**

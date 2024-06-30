@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\ContratoColaboradorController;
 use App\Http\Controllers\HorarioController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,12 +23,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
- 
 // Ruta para el dashboard del administrador
 Route::get('/admin', function () {
     return view('admin.home');
 })->name('admin.home')->middleware('role:1');
-
 
 // Ruta para el dashboard del usuario
 Route::get('/user', function () {
@@ -36,5 +36,24 @@ Route::get('/user', function () {
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::resource('colaboradors', ColaboradorController::class);
     Route::resource('contratos', ContratoColaboradorController::class);
+    
+    // Rutas para horarios
     Route::resource('horarios', HorarioController::class);
+    
+    // Ruta específica para mostrar detalles del horario
+    Route::get('horarios/{codigo_hor}/{codigo_dho?}', [HorarioController::class, 'show'])->name('horarios.show');
+    
+    // Ruta específica para editar detalles del horario
+    Route::get('horarios/{codigo_hor}/{codigo_dho?}/edit', [HorarioController::class, 'edit'])->name('horarios.edit');
+    
+    // Ruta específica para actualizar el horario
+    Route::put('horarios/{codigo_hor}', [HorarioController::class, 'update'])->name('horarios.update');
+    
+    // Ruta específica para actualizar los detalles del horario
+    Route::put('detalles/{codigo_dho}', [HorarioController::class, 'updateDetalle'])->name('detalles.update');
+
+    Route::delete('/horarios/{codigo_hor}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
+    
+    // Ruta específica para eliminar los detalles del horario
+    Route::delete('horarios/detalle/{codigo_dho}', [HorarioController::class, 'destroyDetalle'])->name('horarios.destroyDetalle');
 });

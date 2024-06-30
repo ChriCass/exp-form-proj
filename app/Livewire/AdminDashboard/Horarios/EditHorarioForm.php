@@ -4,7 +4,7 @@ namespace App\Livewire\AdminDashboard\Horarios;
 
 use Livewire\Component;
 use App\Models\Horario;
-use App\Http\Requests\HorarioRequest;
+use App\Http\Requests\ContratoColaboradorRequest;
 use Illuminate\Support\Facades\Validator;
 
 class EditHorarioForm extends Component

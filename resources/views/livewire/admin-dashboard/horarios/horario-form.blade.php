@@ -1,110 +1,70 @@
 <div>
-    <div class="container-fluid">
-        @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <form wire:submit.prevent="submit">
+        <div class="form-group">
+            <label for="horainicio_hor">Hora de Inicio del Horario</label>
+            <input type="time" class="form-control" id="horainicio_hor" wire:model="horainicio_hor">
+            @error('horainicio_hor') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-    @endif
+        <div class="form-group">
+            <label for="horafin_hor">Hora de Fin del Horario</label>
+            <input type="time" class="form-control" id="horafin_hor" wire:model="horafin_hor">
+            @error('horafin_hor') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="estado_hor">Estado</label>
+            <select class="form-control" id="estado_hor" wire:model="estado_hor">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+            @error('estado_hor') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
 
-    @if (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    <form wire:submit.prevent="submit" enctype="multipart/form-data">
-        @csrf
-        <div class="body">
-            <!-- Fechas de Ingreso y Cese -->
-            <div class="row clearfix">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="horainicio_hor">Hora de Inicio</label>
-                        <input id="horainicio_hor" type="time" class="form-control @error('horainicio_hor') is-invalid @enderror" wire:model="horainicio_hor">
-                        @error('horainicio_hor')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+        <button type="button" class="btn btn-primary mb-3" wire:click="addDetalle">Añadir Detalle</button>
+
+        @if($showDetalles)
+            <div class="form-group row" style="margin-top: 15px;margin-bottom: -5px !important;">
+                <label class="col-sm-2 col-form-label">Día</label>
+                <label class="col-sm-2 col-form-label">Tipo</label>
+                <label class="col-sm-2 col-form-label">Hora de Inicio</label>
+                <label class="col-sm-2 col-form-label">Hora de Fin</label>
+                <label class="col-sm-2 col-form-label">Estado</label>
+                <label class="col-sm-2 col-form-label">Acciones</label>
+            </div>
+            @foreach($detalles as $index => $detalle)
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" wire:model="detalles.{{ $index }}.dia_dho">
+                        @error('detalles.'.$index.'.dia_dho') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" wire:model="detalles.{{ $index }}.tipo_dho">
+                        @error('detalles.'.$index.'.tipo_dho') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="time" class="form-control" wire:model="detalles.{{ $index }}.horainicio_dho">
+                        @error('detalles.'.$index.'.horainicio_dho') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="time" class="form-control" wire:model="detalles.{{ $index }}.horafin_dho">
+                        @error('detalles.'.$index.'.horafin_dho') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" wire:model="detalles.{{ $index }}.estado_dho">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        @error('detalles.'.$index.'.estado_dho') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <button type="button" class="btn btn-danger" wire:click="removeDetalle({{ $index }})">Eliminar Detalle</button>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="horafin_hor">Hora Final</label>
-                        <input id="horafin_hor" type="time" class="form-control @error('horafin_hor') is-invalid @enderror" wire:model="horafin_hor">
-                        @error('horafin_hor')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div id="detalles"></div>
+            @endforeach
+        @endif
 
-            <!-- Submit Button -->
-            <div class="col-lg-12 p-t-20 text-center">
-                <button type="button" class="btn btn-primary waves-effect m-r-15" id="add">Añadir Detalle</button>
-                <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
-                <button type="reset" class="btn btn-danger waves-effect">Cancel</button>
-            </div>
-            <script type="text/javascript">
-                var detalles = document.getElementById('detalles');
-                var i = 1;
-                document.getElementById('add').onclick = function() {
-                    str = `
-                        <div class="row clearfix">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="horainicio_dho_${i}">Hora de Inicio</label>
-                                    <input id="horainicio_dho_${i}" type="time" class="form-control @error('horainicio_dho_${i}') is-invalid @enderror" wire:model="horainicio_dho_${i}">
-                                    @error('horainicio_dho_${i}')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="horafin_dho_${i}">Hora Final</label>
-                                    <input id="horafin_dho_${i}" type="time" class="form-control @error('horafin_dho_${i}') is-invalid @enderror" wire:model="horafin_dho_${i}">
-                                    @error('horafin_dho_${i}')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="dia_dho_${i}">Día</label>
-                                    <input id="dia_dho_${i}" type="text" class="form-control @error('dia_dho_${i}') is-invalid @enderror" wire:model="dia_dho_${i}" required>
-                                    @error('dia_dho_${i}')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="tipo_dho_${i}">Tipo</label>
-                                    <input id="tipo_dho_${i}" type="text" class="form-control @error('tipo_dho_${i}') is-invalid @enderror" wire:model="tipo_dho_${i}" required>
-                                    @error('tipo_dho_${i}')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    i++;
-                    detalles.insertAdjacentHTML( 'beforeend', str );
-                }
-            </script>
+        <div class="text-right mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{{ route('horarios.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>

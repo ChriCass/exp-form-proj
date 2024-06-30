@@ -33,4 +33,9 @@ class Horario extends Model
     protected $casts = [
         'estado_hor' => 'boolean',
     ];
+
+    public function detalles()
+    {
+        return $this->hasMany(DetalleHorario::class, 'codigo_hor', 'codigo_hor');
+    }
 }

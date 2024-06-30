@@ -76,4 +76,9 @@ class Colaborador extends Model
       {
           return $this->belongsTo(Eps::class, 'codigo_eps', 'codigo_eps');
       }
+
+      public function contratos()
+      {
+          return $this->hasMany(ContratoColaborador::class, 'codigo_col');
+      }
 }
