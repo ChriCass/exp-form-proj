@@ -230,6 +230,21 @@
                             @enderror
                         </div>
                     </div>
+
+
+
+                    <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="nombres_col">Correo</label>
+                        <input id="nombres_col" type="email" class="form-control @error('email') is-invalid @enderror"
+                            wire:model="email">
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
                 </div>
 
                 <!-- Submit Button -->

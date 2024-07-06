@@ -10,6 +10,8 @@ use App\Models\Sexo;
 use App\Models\Cargo;
 use App\Models\RegimenPensionario;
 use App\Models\Eps;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
@@ -34,6 +36,7 @@ class ColaboradorForm extends Component
     public $fechaingreso_col;
     public $fechacese_per;
     public $estado_col;
+    public $email;
 
     public $errorMessages = [];
 
@@ -68,7 +71,21 @@ class ColaboradorForm extends Component
 
         try {
             Log::info('Validation passed, creating Colaborador');
-            Colaborador::create($validator->validated());
+
+            DB::transaction(function () use($validator) {
+            $colab = Colaborador::create($validator->validated());
+
+            $data = $validator->validated();
+            User::create([
+                'nombre_usuario' => $data['nombres_col'],
+                'email' => $data['email'],
+                'password' => $data['numerodoc_col'],
+                'codigo_col' => $colab->codigo_col,
+                'codigo_rol' => 2,
+                'estado_usu' => 1,
+            ]);
+            });
+
             session()->flash('success', 'Colaborador creado exitosamente.');
             return redirect()->route('colaboradors.index');
         } catch (\Exception $e) {
@@ -95,6 +112,7 @@ class ColaboradorForm extends Component
             'fechaingreso_col' => $this->fechaingreso_col,
             'fechacese_per' => $this->fechacese_per,
             'estado_col' => $this->estado_col,
+            'email' => $this->email,
         ];
     }
 

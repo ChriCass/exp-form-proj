@@ -43,6 +43,7 @@ class ColaboradorRequest extends FormRequest
             'fechaingreso_col' => 'nullable|date',
             'fechacese_per' => 'nullable|date',
             'estado_col' => 'required|boolean',
+            'email' => 'required|email',
         ];
     }
 
@@ -65,6 +66,9 @@ class ColaboradorRequest extends FormRequest
             'fechacese_per.date' => 'La fecha de cese no es válida.',
             'estado_col.required' => 'El estado es obligatorio.',
             'estado_col.boolean' => 'El estado no es válido.',
+
+            'email.required' => 'El correo es obligatorio.',
+            'email.email' => 'El correo no es válido.',
         ];
     }
 }

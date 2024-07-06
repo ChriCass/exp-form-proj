@@ -54,7 +54,7 @@
                     <img src="assets/images/logo.png" alt="" />
                     <span class="logo-name">GestionHR</span>
                 </a>
-                
+
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="pull-left">
@@ -255,7 +255,7 @@
                             <span>Panel de Administración</span>
                         </a>
                     </li>
-                    
+
                     <li class="{{ in_array(Route::currentRouteName(), ['colaboradors.index', 'colaboradors.create', 'colaboradors.show']) ? 'active' : '' }}">
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="users"></i>
@@ -270,8 +270,8 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    
+
+
                     <li>
                         <a href="#" onClick="return false;" class="menu-toggle">
                             <i data-feather="briefcase"></i>
@@ -307,13 +307,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/clients/all-clients.html">Todos los usuarios</a>
+                                <a href="{{ route('users.index') }}">Todos los usuarios</a>
                             </li>
                             <li>
-                                <a href="pages/clients/add-client.html">Añadir usuario</a>
-                            </li>
-                            <li>
-                                <a href="pages/clients/edit-client.html">Editar usuario</a>
+                                <a href="{{ route('users.create') }}">Añadir usuario</a>
                             </li>
                         </ul>
                     </li>
@@ -324,13 +321,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/leave/all-leave.html">Todas las Areas</a>
+                                <a href="{{ route('areas.index') }}">Todas las Areas</a>
                             </li>
                             <li>
-                                <a href="pages/leave/leave-balance.html">Añadir Area</a>
-                            </li>
-                            <li>
-                                <a href="pages/leave/add-leave.html">Editar Area</a>
+                                <a href="{{ route('areas.create') }}">Añadir Area</a>
                             </li>
 
                         </ul>
@@ -342,13 +336,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/holiday/all-holidays.html">Todos los cargos</a>
+                                <a href="{{ route('cargos.index') }}">Todos los cargos</a>
                             </li>
                             <li>
-                                <a href="pages/holiday/add-holiday.html">Añadir cargo</a>
-                            </li>
-                            <li>
-                                <a href="pages/holiday/edit-holiday.html">Editar Cargo</a>
+                                <a href="{{ route('cargos.create') }}">Añadir cargo</a>
                             </li>
                         </ul>
                     </li>
@@ -632,7 +623,7 @@
     <script src="{{ asset('js/bundles/apexcharts.min.js') }}"></script>
     <script src="{{ asset('js/pages/index.js') }}"></script>
     <script src="{{ asset('js/pages/todo/todo.js') }}"></script>
- 
+
     @livewireScripts
 </body>
 

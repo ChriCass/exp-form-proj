@@ -45,4 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+
+    // Relación con el modelo Colaborador
+    public function colaborador()
+    {
+        return $this->belongsTo(Colaborador::class, 'codigo_col', 'codigo_col');
+    }
+
+    // Relación con el modelo Rol
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'codigo_rol', 'codigo_rol');
+    }
 }

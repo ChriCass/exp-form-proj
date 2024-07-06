@@ -61,6 +61,32 @@ class HorarioForm extends Component
 
         $validatedData = $this->validate($rules);
 
+
+
+
+
+        $items = $validatedData['detalles'];
+        $h1 = $validatedData['horainicio_hor'];
+        $h2 = $validatedData['horafin_hor'];
+
+        $hasError = false;
+        $errorMessage = '';
+
+        foreach ($items as $item) {
+            if ($item['horainicio_dho'] < $h1 || $item['horafin_dho'] > $h2) {
+                $hasError = true;
+                $errorMessage = 'El detalle tiene un horario fuera del rango principal.';
+                break;
+            }
+        }
+
+
+        if ($hasError) {
+            session()->flash('error', $errorMessage);
+            return;
+        }
+
+
         DB::transaction(function () use ($validatedData) {
             $horario = Horario::create([
                 'horainicio_hor' => $validatedData['horainicio_hor'],
